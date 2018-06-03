@@ -1,0 +1,2 @@
+# gosca
+go project scaffolder.
