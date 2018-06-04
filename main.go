@@ -57,7 +57,7 @@ func createFolderStructure(projectpath, path string) {
 	fmt.Println("folders created.")
 }
 
-func gitInit(projectpath string) {
+func gitInit(path string) {
 	cmd := "git init -q " + projectpath
 	exec.Command("sh", "-c", cmd).Output()
 
