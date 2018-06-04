@@ -1,2 +1,0 @@
-# gosca
-go project scaffolder.
