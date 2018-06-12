@@ -93,10 +93,10 @@ func main() {
 
 	dest := filepath.Join(path, "main.go")
 	if f, err := os.Create(dest); err == nil {
+		defer f.Close()
 		f.WriteString(content)
 		f.Chmod(0755)
 		f.Sync()
-		defer f.Close()
 	}
 
 	fmt.Println("wrote main.go.")
