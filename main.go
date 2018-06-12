@@ -58,7 +58,7 @@ func createFolderStructure(projectpath, path string) {
 }
 
 func gitInit(path string) {
-	cmd := "git init -q " + projectpath
+	cmd := "git init -q " + path
 	exec.Command("sh", "-c", cmd).Output()
 
 	fmt.Println("git init.")
@@ -94,6 +94,7 @@ func main() {
 	dest := filepath.Join(path, "main.go")
 	if f, err := os.Create(dest); err == nil {
 		f.WriteString(content)
+		f.Chmod(0755)
 		f.Sync()
 		defer f.Close()
 	}
