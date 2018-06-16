@@ -19,10 +19,10 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 - will create the the usual go project structure into "/home/wrk" (change as you wish) including a dummy main.go
 - assumes `github.com/sjas` as module path (change as you wish)
 - automatically creates `direnv`'s `.envrc`
-- runs `git init` where it needs to be run, in 
+- runs `git init` where it needs to be run, in `~/wrk/PROJECT/src/github.com/sjas/PROJECT` (fixed automatically upon changes above)
 - hands out project path to copy-paste after running
 
 ## misses? todos?
 
 - some error reporting/handling
-- make the destination path / module path be set from config file instead of being hardcoded (i have no use since these are fixed by my conventions)
+- make the destination path / module path settable from config file (not hardcoded, is no use for me since the path structure is a fixed convention for all my setups)
