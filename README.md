@@ -1,6 +1,4 @@
-# gosca
-
-[![Go Report Card](https://goreportcard.com/badge/github.com/sjas/gosca?style=flat-square)](https://goreportcard.com/report/github.com/sjas/gosca)
+# gosca [![Go Report Card](https://goreportcard.com/badge/github.com/sjas/gosca?style=flat-square)](https://goreportcard.com/report/github.com/sjas/gosca)
 
 go project scaffolding tool.
 
@@ -26,3 +24,5 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 
 - some error reporting/handling
 - make the destination path / module path settable from config file (not hardcoded, is no use for me since the path structure is a fixed convention for all my setups)
+- create some checkout function to quick-build repos from urls
+- possibly redo the argparsing then, too
