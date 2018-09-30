@@ -26,7 +26,8 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 - maybe check for a working direnv installation and let it fix things if need be
 - some error reporting/handling
 - make the destination path / module path settable from config file (not hardcoded, possibly no use for me since the path structure is a fixed convention for all my setups, may change with additional features -> `~/.config` ?)
-- create some checkout function to quick-build repos from urls (if args[1] ~= https:// -> create structure with proper path and clone, otherwise do regular scaffolding)
--- do nothing if called without arguments
--- create skeleton plus git clone remote repo if a single argument is passed
--- fail on argc > 1
+
+create checkout function to quick-build repos from urls (if args[1] ~= https:// -> create structure with proper path and clone, otherwise do regular scaffolding)
+- create blank skeleton if called without arguments
+- create skeleton plus git clone remote repo if a single argument is passed
+- fail on argc > 1
