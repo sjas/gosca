@@ -13,3 +13,6 @@
 
 # no swapfiles
 *.sw*
+
+# dont commit vendor/
+vendor/
