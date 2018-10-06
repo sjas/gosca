@@ -22,12 +22,21 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 
 ## misses? todos?
 
-- check wether git is present
-- maybe check for a working direnv installation and let it fix things if need be
-- some error reporting/handling
-- make the destination path / module path settable from config file (not hardcoded, possibly no use for me since the path structure is a fixed convention for all my setups, may change with additional features -> `~/.config` ?)
+- check wether git is present else fail
+- check for a working direnv installation else fail
+- make the destination path / module path settable from config file ( `~/.config/gosca`)
+- prompt for destination folder if config is not present yet and write to config
+- get a decent help page
+- automatically 'go get' on creation if need be?
 
-create checkout function to quick-build repos from urls (if args[1] ~= https:// -> create structure with proper path and clone, otherwise do regular scaffolding)
-- create blank skeleton if called without arguments
-- create skeleton plus git clone remote repo if a single argument is passed
-- fail on argc > 1
+- parameter handling redone
+- if single parameter starts with http{,s}:// string == create skeleton with github repo name and clone github repo
+- if other string == create repo with that name, do nothing else
+- if one parameter starts with http{,s}:// == create repo with other arguements' name
+- if argc>0 == show usage
+- if argc>2 == fail
+- names can only consist of [A-Za-z_-]
+- -h / --help
+- -u / --usage
+- flag to change dst folder path in config
+- flag to show current dst folder path
