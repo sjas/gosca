@@ -1,10 +1,10 @@
 # gosca [![Go Report Card](https://goreportcard.com/badge/github.com/sjas/gosca?style=flat-square)](https://goreportcard.com/report/github.com/sjas/gosca)
 
-go project scaffolding tool.
+the missing go project skeleton scaffolding tool
 
 ## why? 
 
-fixes the need to use golang's forced global $GOPATH without having to fuzz around with the environment all the damn time
+fixes the need to use golang's forced global $GOPATH without having to fuzz around with the environment every damn time
 
 ## depends on?
 
