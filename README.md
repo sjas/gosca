@@ -1,6 +1,6 @@
-# gosca [![Go Report Card](https://goreportcard.com/badge/github.com/sjas/gosca?style=flat-square)](https://goreportcard.com/report/github.com/sjas/gosca)
+# gosca - golang project scaffolding tool [![Go Report Card](https://goreportcard.com/badge/github.com/sjas/gosca?style=flat-square)](https://goreportcard.com/report/github.com/sjas/gosca)
 
-the missing golang project skeleton generator tool
+the missing golang project skeleton generator.
 
 ## why? 
 
