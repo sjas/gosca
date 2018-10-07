@@ -16,3 +16,6 @@
 
 # dont commit vendor/
 vendor/
+
+# dont commit compiled binary
+gosca

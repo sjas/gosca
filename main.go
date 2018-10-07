@@ -1,30 +1,81 @@
 package main
 
+import "bufio"
 import "fmt"
 import "os"
 import "os/exec"
 import "path/filepath"
 
+import "github.com/spf13/viper"
+
 func main() {
-	workspace := filepath.Join(os.Getenv("HOME"), "wrk")
-	github := "github.com/sjas"
+	//usage() and exit when run without any arguments
+	if len(os.Args) == 1 {
+		usage()
+	}
+
+	//check needed dependencies else this wont do much good
+	if !(doesBinaryExistInPath("git")) {
+		fmt.Println("git is not installed")
+		os.Exit(1)
+	}
+	if !(doesBinaryExistInPath("direnv")) {
+		fmt.Println("direnv is not installed")
+		os.Exit(1)
+	}
+
+	//use viper for config management
+	v := viper.New()
+	v.SetConfigType("toml")
+	configfile := filepath.Join(os.Getenv("HOME"), ".config", "gosca.toml")
+	v.SetConfigFile(configfile)
+
+	//read config settings or prompt for settings and create it if no config is present yet
+	if err := v.ReadInConfig(); err != nil {
+		fmt.Println(err)
+		fmt.Println()
+		fmt.Println("no config present yet, please provide desired default settings:")
+		fmt.Println("full path of desired workspace?")
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		ws := scanner.Text()
+		//if given workspace path doesnt exist just exit
+		if _, err := os.Stat(ws); err != nil {
+			fmt.Println("workspace path must already exist!")
+			os.Exit(1)
+		}
+		fmt.Println("github account name?")
+		scanner.Scan()
+		githubName := scanner.Text()
+		gh := "github.com/" + githubName
+		v.Set("workspace", ws)
+		v.Set("github", gh)
+		if err := v.WriteConfigAs(configfile); err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("config written to " + configfile)
+	}
+	workspace := v.GetString("workspace")
+	github := v.GetString("github")
 
 	if len(os.Args) != 2 {
 		fmt.Println()
 		fmt.Println("wrong number of arguments.")
+		fmt.Println()
 		usage()
-		os.Exit(1)
 	}
 
 	projectname := os.Args[1]
 	projectpath := filepath.Join(workspace, projectname)
 	path := filepath.Join(workspace, projectname, "src", github, projectname)
+	//cmdpath := filepath.Join(path, "cmd", projectname)
 
 	checkIfWorkspaceFolderExistsOrQuit(workspace)
 	createFolderStructure(projectpath, path)
 	createEnvRC(projectpath)
+	//os.MkdirAll(cmdpath, os.ModePerm)
+	//createMain(cmdpath)
 	createMain(path)
-	direnvAllow(projectpath)
 	gitInit(path)
 	fmt.Println("cd " + path + "  ## dev here")
 }
@@ -35,6 +86,16 @@ func usage() {
 	fmt.Println()
 	fmt.Println(os.Args[0] + "  PROJECTNAME")
 	fmt.Println()
+	fmt.Println("config file is here: " + filepath.Join(os.Getenv("HOME"), ".config", "gosca.toml"))
+	os.Exit(0)
+}
+
+func doesBinaryExistInPath(commandname string) bool {
+	cmd := exec.Command("/bin/sh", "-c", "command -v "+commandname)
+	if err := cmd.Run(); err != nil {
+		return false
+	}
+	return true
 }
 
 func checkIfWorkspaceFolderExistsOrQuit(workspace string) {
@@ -65,8 +126,9 @@ func gitInit(path string) {
 }
 
 func createEnvRC(projectpath string) {
-	content := `export GOPATH=$(pwd):$GOPATH
-export PATH=$(pwd)/bin:$PATH
+	content := `#export GOPATH=$(pwd):$GOPATH
+#export PATH=$(pwd)/bin:$PATH
+layout go
 `
 
 	dest := filepath.Join(projectpath, ".envrc")
