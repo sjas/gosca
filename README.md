@@ -11,25 +11,23 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 - `direnv` package installed or in `$PATH` to properly work (for dynamically fixing `$GOPATH` upon entering/leaving the created project folder)
 - `git`
 
-## what?
+## what/how?
 
-- creates standalone binary
-- will create the the usual go project structure into "/home/wrk" (change as you wish) including a dummy main.go
-- assumes `github.com/sjas` as module path (change as you wish)
+- creates standalone binary that can be run for you scaffolding needs
+- checks wether git and direnv binaries are present and usable
+- prompts for its own config settings if these are not yet defined via spf13/viper
+- will create the the defacto go project structure into a dedicated folder within your desired workspace
+- including a dummy main.go
+- sets your github account as your own namespace
 - automatically creates `direnv`'s `.envrc`
-- runs `git init` where it needs to be run, in `~/wrk/PROJECT/src/github.com/sjas/PROJECT` (fixed automatically upon changes above)
+- runs `git init` right where it needs to be ran
 - hands out project path to copy-paste after running
 
 ## misses? todos?
 
-- check wether git is present else fail
-- check for a working direnv installation else fail
-- make the destination path / module path settable from config file ( `~/.config/gosca`)
-- prompt for destination folder if config is not present yet and write to config
-- get a decent help page
-- automatically 'go get' on creation if need be?
+- automatically 'go get' on creation if need be? (== include godep and initialize that, too)
 
-- parameter handling redone
+- parameter handling redone (== use 'spf13/cobra')
 - if single parameter starts with http{,s}:// string == create skeleton with github repo name and clone github repo
 - if other string == create repo with that name, do nothing else
 - if one parameter starts with http{,s}:// == create repo with other arguements' name
