@@ -25,6 +25,8 @@ fixes the need to use golang's forced global $GOPATH without having to fuzz arou
 
 ## misses? todos?
 
+- WITH GOLANG 1.11 HAVING MODULES THE DIRENV STUFF MAY BECOME AT LEAST PARTIALLY OBSOLETE
+
 - automatically 'go get' on creation if need be? (== include godep and initialize that, too)
 
 - parameter handling redone (== use 'spf13/cobra')
